@@ -1,15 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const connectDB = require('./db/db');
-const User = require('./models/userModel')
+const User = require('./models/userModel');
+const Wine = require('./models/wineModel');
+const Cart = require('./models/addWineToCart');
 
 const app = express();
 app.use(bodyParser.json());
 
 
 connectDB();
-
-
 
 
 app.post('/create_user', async (req, res) => {
@@ -63,7 +63,34 @@ app.delete('/delete_user/:id', async (req, res) => {
     }
 });
 
+app.get('/list_wines', async(req, res) => {
+    try{
+        const winesList = await Wine.find();
+        res.status(200).json(winesList);
+    }catch (error) {
+        res.status(500).json({message: 'Error trying to list availables wines'});
+    }
+})
 
+app.post('/add_wine_to_cart', async(req, res) => {
+    try{
+        const {name} = req.body;
+        const cartList = await Cart.addWineInListCart({name});
+        res.status(200).json(cartList);
+    }catch (error) {
+        res.status(500).json({message: "Error trying to add a wine"});
+    }
+})
+
+app.delete('/delete_wine_from_cart/:name', async(req, res) => {
+    try{
+        const {name} = req.params;
+        const cartList = await Cart.deleteWineOfListCart(name);
+        res.status(200).json(cartList);
+    }catch (error) {
+        res.status(500).json({message: "Error trying to delete a wine from cart"});
+    }
+})
 
 const port = 3001;
 app.listen(port, () => {

@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 
 const wineSchema = new mongoose.Schema({
+    name: String,
     category: String,
     grapeType: String,
     year: Number,
     description: String,
-    price: Number,
+    amount: String,
+    price: Number
 });
 
 const Wine = mongoose.model('Wine', wineSchema);

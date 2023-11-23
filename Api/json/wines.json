@@ -1,25 +1,31 @@
 [
-    {
+    {   
+        "name": "Uvas Malbec",
         "category": "Uvas",
         "grapeType": "Malbec",
         "year": 2019,
         "description": "rico",
+        "amount": 10,
         "price": 2000
     },
 
     {
+        "name": "Reserve Malbec",
         "category": "Reserve",
         "grapeType": "Malbec",
         "year": 2019,
         "description": "ricoo",
+        "amount": 13,
         "price": 2000
     },
 
-    {
+    {   
+        "name": "Expression Cabernet",
         "category": "expression",
         "grapeType": "Cabernet",
         "year": 2000,
         "description": "ricooo",
+        "amount": 30,
         "price": 1000
     }
 ]
