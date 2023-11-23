@@ -1,0 +1,25 @@
+[
+    {
+        "category": "Uvas",
+        "grapeType": "Malbec",
+        "year": 2019,
+        "description": "rico",
+        "price": 2000
+    },
+
+    {
+        "category": "Reserve",
+        "grapeType": "Malbec",
+        "year": 2019,
+        "description": "ricoo",
+        "price": 2000
+    },
+
+    {
+        "category": "expression",
+        "grapeType": "Cabernet",
+        "year": 2000,
+        "description": "ricooo",
+        "price": 1000
+    }
+]
