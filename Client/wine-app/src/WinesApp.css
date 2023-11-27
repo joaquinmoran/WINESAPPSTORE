@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Domine');
+@import url('https://fonts.googleapis.com/css?family=Diphylleia');
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+  justify-content: center;
+  align-items: center;
+  background-image: url('./Images/winaryMiterruño.jpg');
+  background-size: cover;
+  position: fixed;
+  padding: auto;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+
+.container-right{
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 60px 100px / 120px 100px;
+    top: 60%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    height: 55%;
+    width: 35%;
+}
+
+.login-cnt {
+    margin: auto;
+    border-radius: 32px;
+    height: 80%;
+    width: 80%;
+    margin-top:     00px;
+    /* background-color: rgba(255, 255, 255, 0.25); */
+}
+
+input {
+    color: rgb(255, 255, 255);
+    border-radius: 12px;
+    border-color: rgb(255, 255, 255);
+    border: 5px;
+    height: 35px;
+    width: 245px;
+    font-size: 17px;
+    background-color: rgba(255, 255, 255, 0);
+    font-family: 'Diphylleia';
+}
+
+input::placeholder {
+    color: rgb(255, 255, 255);
+    /* font-family: 'Didact'; */
+    text-align: center;
+}
+
+.user-input {
+    color: white;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+button {
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 150px;
+    transition-duration: 0.8s;
+    border-radius: 30px;
+    border: solid;
+    border-color: rgb(56, 0, 52);
+    height: 40px;
+    font-size: larger;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+button:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgba(121, 10, 158, 0.5);
+}
+
+
+.div-butt-in {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.div-butt-create {
+    margin-bottom: 50px;
+}
+
+.user-label{
+    font-family: 'Domine';
+    font-size: larger;
+    color: white;
+}
+
+.pw-label {
+    font-family: 'Domine';
+    font-size: larger;
+    color: white;
+}
+
+.link-create-acc {
+    color: white;
+}
+
+

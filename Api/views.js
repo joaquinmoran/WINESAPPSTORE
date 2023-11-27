@@ -4,8 +4,12 @@ const connectDB = require('./db/db');
 const User = require('./models/userModel');
 const Wine = require('./models/wineModel');
 const Cart = require('./models/addWineToCart');
+const hashPassword = require('./pwEncrypt');
+const bcrypt = require('bcrypt');
+const cors = require('cors')
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 
 
@@ -15,7 +19,8 @@ connectDB();
 app.post('/create_user', async (req, res) => {
     try{
         const {userName, email, age, password} = req.body;
-        const newUser = new User({userName, email, age, password});
+        const hashedPassword= await bcrypt.hash(password, 10);
+        const newUser = new User({userName, email, age, password: hashedPassword});
         await newUser.save();
         if(!newUser){
             return res.status(400).json({message: 'Existing username'})
@@ -38,11 +43,22 @@ app.get('/get_users', async (req, res) => {
 app.post('/login', async(req, res) => {
     try{
         const {userName, password} = req.body;
-        const user = await User.find({userName, password});
-        if(!user){
-            return res.status(400).json({message: 'Username or password invalid'});
+        const user = await User.findOne({userName});
+        if(user){
+            bcrypt.compare(password, user.password)
+            .then((match) => {
+                if(match){
+                    return res.status(200).json(user);
+                } else {
+                    res.status(400).json({message: 'Incorrect Password'});
+                }
+            })
+            .catch((error) => {
+                res.status(500).json({message:'Error ocurred while comparing password ', error});
+            });
+        } else {
+            res.status(500).json({message: 'Incorrect username'});
         }
-        res.status(200).json(user);
     }catch (error){
         res.status(500).json({message: 'Error trying to login'});
     }
@@ -92,7 +108,22 @@ app.delete('/delete_wine_from_cart/:name', async(req, res) => {
     }
 })
 
+app.get('/wine_description/:name', async(req,res) => {
+    try{
+        const {name} = req.params;
+        const descr = await Wine.findOne({name}, 'description');
+        if(descr !== null) {
+            res.status(200).json({message: `Description of ${name}`, description: descr.description});
+        }else {
+            res.statue(404).json({message: 'Non-existent wine'})
+        }
+    }catch (error) {
+        res.status(500).json({message: 'Error trying to show description'});
+    }
+})
+
 const port = 3001;
 app.listen(port, () => {
   console.log(`Server running in port: ${port}`);
 });
+78
