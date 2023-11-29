@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css?family=Diphylleia');
+
+.login-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50px;
+    top: 42%;
+    left: 86%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    margin-top: 100px;
+    height: 100%;
+    width: 45%;
+}
+
+.lg-con {
+    margin-right: 70px;
+    margin-bottom: 150px;
+}
+
+.log-inputs {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid rgb(255, 255, 255);
+    padding: 5px;
+    outline: none;
+    font-family: 'Diphylleia';
+}
+
+.log-inputs:focus {
+    border-bottom: 1px solid gray;
+}
+
+.log-inputs::placeholder {
+    color: rgb(255, 255, 255);
+    text-align: start;
+}
+
+.registred-label {
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    margin-bottom: 200px;   
+    margin-left: 150px;
+}
+
+.user-label {
+    font-size: 15px;
+}
+
+.pw-label {
+    font-size: 15px;
+}
+
+.div-butt-in {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+
+.link-create-acc {
+    color: rgb(0, 0, 0);
+}
+
+.button-in {
+    background-color: transparent;
+    width: 150px;
+    transition-duration: 0.8s;
+    border: none;
+    border-color: rgb(56, 0, 52);
+    height: 40px;
+    font-size: larger;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+    margin-top: 40px;
+}
+
+.button-in:hover {
+    background-color: beige;
+    border-radius: 50px;
+    color: black
+}
+
+.login-area {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 1s ease, max-height 1s ease;
+}
+  
+.login-area.active {
+    opacity: 1;
+    max-height: 200px;
+}
