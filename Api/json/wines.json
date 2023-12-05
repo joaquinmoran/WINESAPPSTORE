@@ -6,7 +6,8 @@
         "year": 2019,
         "description": "rico",
         "amount": 10,
-        "price": 2000
+        "price": 2000,
+        "img": "http://localhost:3000/images/reserve-malbec.jpg"
     },
 
     {
@@ -16,7 +17,19 @@
         "year": 2019,
         "description": "ricoo",
         "amount": 13,
-        "price": 2000
+        "price": 2000,
+        "img": "http://localhost:3000/images/reserve-malbec.jpg"
+    },
+
+    {
+        "name": "Reserve Cabernet Franc",
+        "category": "Reserve",
+        "grapeType": "Franc",
+        "year": 2019,
+        "description": "ricoo",
+        "amount": 13,
+        "price": 2000,
+        "img": "http://localhost:3000/images/reserve-cf.jpg"
     },
 
     {   
@@ -26,6 +39,40 @@
         "year": 2000,
         "description": "ricooo",
         "amount": 30,
-        "price": 1000
+        "price": 1000,
+        "img": "http://localhost:3000/images/reserve-malbec.jpg"
+    },
+
+    {
+        "name": "Uvas bonarda",
+        "category": "Reserve",
+        "grapeType": "Franc",
+        "year": 2019,
+        "description": "ricoo",
+        "amount": 13,
+        "price": 2000,
+        "img": "http://localhost:3000/images/reserve-malbec.jpg"
+    },
+
+    {
+        "name": "Reserve Cabernet suavignon",
+        "category": "Reserve",
+        "grapeType": "Franc",
+        "year": 2019,
+        "description": "ricoo",
+        "amount": 13,
+        "price": 2000,
+        "img": "http://localhost:3000/images/reserve-malbec.jpg"
+    },
+
+    {
+        "name": "Reserve chardonnay",
+        "category": "Reserve",
+        "grapeType": "Franc",
+        "year": 2019,
+        "description": "ricoo",
+        "amount": 13,
+        "price": 2000,
+        "img": "http://localhost:3000/images/reserve-malbec.jpg"
     }
 ]

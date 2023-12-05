@@ -9,7 +9,7 @@ body {
 .container {
   justify-content: center;
   align-items: center;
-  background-image: url('./Images/winaryMiterruño.jpg');
+  background-image: url('../public/images/winaryMiterruño.jpg');
   background-size: cover;
   position: fixed;
   padding: auto;

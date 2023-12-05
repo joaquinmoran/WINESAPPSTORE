@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Diphylleia');
 
-.login-container {
+.create-container {
     background-color: rgba(white, 0, 0, 0.5);
     backdrop-filter: blur(10px);
     border-radius: 50px;
@@ -13,13 +13,12 @@
     width: 45%;
 }
 
-.lg-con {
-    
-    margin-right: 130px;
-   
+.cr-con {
+    margin-right: 70px;
+    margin-bottom: 150px;
 }
 
-.log-inputs {
+.create-inputs {
     color: white;
     background-color: transparent;
     border: none;
@@ -29,11 +28,11 @@
     font-family: 'Diphylleia';
 }
 
-.log-inputs:focus {
+.create-inputs:focus {
     border-bottom: 1px solid gray;
 }
 
-.log-inputs::placeholder {
+.create-inputs::placeholder {
     color: rgb(255, 255, 255);
     text-align: start;
 }
@@ -49,21 +48,32 @@
     font-size: 15px;
 }
 
+.mail-label {
+    font-size: 15px;
+}
+
+.age-label {
+    font-size: 15px;
+}
+
+.age-input {
+    margin-top: 50px;
+}
+
 .pw-label {
     font-size: 15px;
 }
 
-.div-butt-in {
+.pw-input {
+    margin-top: 50px;
+}
+
+.div-butt-create {
     margin-top: 50px;
     margin-bottom: 50px;
 }
 
-
-.link-create-acc {
-    color: rgb(0, 0, 0);
-}
-
-.button-in {
+.button-create {
     background-color: transparent;
     width: 150px;
     transition-duration: 0.8s;
@@ -76,20 +86,20 @@
     margin-top: 40px;
 }
 
-.button-in:hover {
+.button-create:hover {
     background-color: beige;
     border-radius: 50px;
     color: black
 }
 
-.login-area {
+.signin-area {
     opacity: 0;
     max-height: 0;
     overflow: hidden;
     transition: opacity 0.1s ease, max-height 0.1s ease;
 }
   
-.login-area.active {
+.signin-area.active {
     opacity: 1;
     max-height: 200px;
 }

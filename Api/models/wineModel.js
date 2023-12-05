@@ -7,7 +7,8 @@ const wineSchema = new mongoose.Schema({
     year: Number,
     description: String,
     amount: String,
-    price: Number
+    price: Number,
+    img: String
 });
 
 const Wine = mongoose.model('Wine', wineSchema);

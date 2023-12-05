@@ -19,12 +19,32 @@ export default function Login() {
         console.log(password);
     }
 
-    function handleLogClick() {
+    function handleLogSubmit() {
+        if(!name || !password) {
+            if(!name) {
+                alert("El campo de nombre de usuario no puede ser vacio");
+            }
+            if(!password) {
+                alert("El campo de contraseña no puede ser vacio")
+            }
+            return;
+        }
+
         WinesAppService.login(name, password).then(
-            () => {
-                  navigate('/store');
-            },
-        )
+            (response) => {
+                console.log(response.status);
+                if (response.status === 200) {    
+                    console.log('succesful.');
+                    navigate('/store');
+                }
+                if(response.status === 400) {
+                    alert("Nombre de usuario o contraña incorrectos");
+                }
+            })
+            .catch((error) => {
+                alert('Usuario no registrado, cree una cuenta');
+            })
+        
     }
 
     return (
@@ -32,6 +52,7 @@ export default function Login() {
             <div className='lg-con'>
                     <div className='user-input'>
                         <form style={{textAlign: 'center'}}>
+                        <div>
                             <label className='user-label'>
                             Nombre de usuario o mail
                             <br />
@@ -43,12 +64,11 @@ export default function Login() {
                                     placeholder='Usuario'
                                     name='user'
                                     onChange={handleChangeUser.bind(this)}
+                                    required
                                 />
                             </label>
-                        </form>
-                    </div>
-                    <div className='pw-input'> 
-                        <form style={{textAlign: 'center'}}>
+                        </div>
+                        <div>
                             <label className='pw-label'>
                             Contraseña
                             <br />
@@ -60,18 +80,16 @@ export default function Login() {
                                     placeholder='Contraseña'
                                     name='passw'
                                     onChange={handleChangeUserPassword.bind(this)}
+                                    required
                                 />
                             </label>
-                        </form>
-                    </div>
-                
-                    <div style={{textAlign:'center'}}>
-                        <div className='div-butt-in'>
-                            <button type='button' className='button-in' onClick={handleLogClick}> 
-                                    Entrar 
-                            </button>
                         </div>
-                        
+                            <div className='div-butt-in'>
+                                <button type='button' className='button-in' onClick={handleLogSubmit}> 
+                                        Entrar 
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <hr />

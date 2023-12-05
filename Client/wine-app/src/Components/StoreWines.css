@@ -1,0 +1,65 @@
+.store-container {
+    position: relative;
+}
+
+.store-container::after {
+    content: "";
+    background-image: url('../../public/images/backgroundStore.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+}
+
+
+.reserve-malbec::before{
+    content: "";
+    display: block;
+    width: 200px;
+    height: 300px;
+    object-fit: contain;
+    background-image: url('../../public/images/reserve-malbec.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0.3);
+    background-position: center;
+    border-radius: 20px;
+    border: solid 3px white;
+}
+
+.reserve-malbec {
+    border-radius: 10px;
+    margin-right: 100px;
+}
+
+.wines-catalogue {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    left: 0;
+    top: 0;
+}
+
+.wines-cat {
+    flex: 0 0 calc(33.33%);
+    margin: 10px;
+}
+
+.wine-image {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(255, 255, 255, 0.638);
+    border-radius: 10px;
+    width: 200px; 
+    height: 300px;
+    margin-right: 50px;
+}
+

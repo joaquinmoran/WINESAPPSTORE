@@ -4,11 +4,13 @@ const connectDB = require('./db/db');
 const User = require('./models/userModel');
 const Wine = require('./models/wineModel');
 const Cart = require('./models/addWineToCart');
-const hashPassword = require('./pwEncrypt');
 const bcrypt = require('bcrypt');
 const cors = require('cors')
 
 const app = express();
+
+app.use(express.static('public'));
+
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -23,7 +25,7 @@ app.post('/create_user', async (req, res) => {
         const newUser = new User({userName, email, age, password: hashedPassword});
         await newUser.save();
         if(!newUser){
-            return res.status(400).json({message: 'Existing username'})
+            res.status(400).json({message: 'Existing username'})
         }
         res.status(201).json({message: 'User load successfully'});
     }catch (error){
@@ -53,11 +55,8 @@ app.post('/login', async(req, res) => {
                     res.status(400).json({message: 'Incorrect Password'});
                 }
             })
-            .catch((error) => {
-                res.status(500).json({message:'Error ocurred while comparing password ', error});
-            });
         } else {
-            res.status(500).json({message: 'Incorrect username'});
+            res.status(400).json({message: 'Incorrect username'});
         }
     }catch (error){
         res.status(500).json({message: 'Error trying to login'});

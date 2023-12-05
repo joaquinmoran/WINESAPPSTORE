@@ -12,7 +12,6 @@ function App (){
               <Route path='/' element={<WinesApp />} />
               <Route path='/show_wines' element={<ShowWines />}/> 
               <Route path='/store' element={<StoreWines />}/>
-              <Route path='/create_account' element={<CreateAccount />}/>
             </Routes>
           </div>
     );
