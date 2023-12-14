@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import WinesApp from './WinesApp';
 import ShowWines from './Components/ShowWines.component';
 import StoreWines from './Components/StoreWines.component';
-import CreateAccount from './Components/CreateAccount.component';
+import ShowCart from './Components/ShowCart.component';
 
 function App (){
     return (
@@ -12,6 +12,7 @@ function App (){
               <Route path='/' element={<WinesApp />} />
               <Route path='/show_wines' element={<ShowWines />}/> 
               <Route path='/store' element={<StoreWines />}/>
+              <Route path='/cart' element={<ShowCart />}/>
             </Routes>
           </div>
     );

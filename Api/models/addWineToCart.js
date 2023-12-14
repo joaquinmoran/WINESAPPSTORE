@@ -4,8 +4,8 @@ const wineList = []
 
 async function addWineInListCart(name){
     try{
-        const wine = await Wine.findOne(name);
-        if(wine && wine.amount > 0) {
+        const wine = await Wine.findOne({name});
+        if(wine) {
             wineList.push(wine);
             return wineList;
         }else {
@@ -33,7 +33,12 @@ async function deleteWineOfListCart(name) {
     }
 }
 
+async function getListOfWines() {
+    return wineList;
+}
+
 module.exports = {
     addWineInListCart,
     deleteWineOfListCart,
+    getListOfWines,
 }

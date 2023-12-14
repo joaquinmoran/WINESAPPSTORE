@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import WinesAppService from '../Services/wineApp.service';
 import './StoreWines.css'; 
 
 export default function StoreWines() {
 
+    const navigate = useNavigate();
     const [ wines, setWines ]  = useState([]);
+    const [ image, setImage ] = useState(null);
+    const [ listWines, setListWines ] = useState([]);
 
     function getAllWines() {
-        WinesAppService.getWinesList().then(
+        const userToken = localStorage.getItem('token');
+        WinesAppService.getWinesList(userToken).then(
             (response) => {
+                
                 if (response.status === 200) {
                     console.log(response.data);
                     setWines(response.data);
@@ -22,6 +27,32 @@ export default function StoreWines() {
         })
     }
 
+    function handleImageClick(imageUrl) {
+        setImage(imageUrl);
+    }
+
+    function handleCloseImage() {
+        setImage(null);
+    }
+
+    function handleListClik(wineName) {
+        WinesAppService.addWineToCart(wineName).then(
+            (response) => {
+                console.log('added.', wineName)
+            })
+            .catch((error) => {
+                alert('No se pudo agregar el vino, intente nuevamente en unos minutos')
+            })
+    }
+
+    function handleCartClick() {
+        navigate('/cart');
+    }
+
+    // function handleDeleteItemClick(index) {
+    //     setListWines(prevList => prevList.filter((_,i) => i !== index));
+    // }
+
 
     useEffect(() => {
         getAllWines();
@@ -30,24 +61,56 @@ export default function StoreWines() {
 
     return (
         <div className="store-container">
-            <div className="wines-catalogue">
+        <nav className='navbar'>
+            <div className='top-nav-bar-left'>
+                    <Link to='/show_wines' className='show-link'>
+                        Nuestros Vinos  
+                    </Link>
+                    <Link to='/us' className='us-link'>
+                        Acerca de nosotros
+                    </Link>
+            </div>  
+            <button className="cart-button" onClick={() => handleCartClick()}>
+                    <img className="cart-logo" src={'http://localhost:3000/images/cartLogo.png'} /> 
+            </button>
+        </nav> 
                 {
                     wines && wines.length > 0 ? (
                         wines.map((wine) => {
-                            return (
-                                <div className="wines-cat" key={wine.id}>
-                                    <div className="wine-image" style={{backgroundImage: `url(${wine.img})`}}
-                                            onClick={() => console.log('URL de la imagen:', `${wine.img}`)}/>
-                                    <button className="wines-b">{wine.name}</button>
-                                    <p>{wine.price}</p>
+                            return ( 
+                                <div className="cat-container">
+                                    <div className="wines-cat" key={wine.id}>
+                                        <div className="wine-image" style={{backgroundImage: `url(${wine.img})`}}
+                                                onClick={() => handleImageClick(wine.img)}>
+                                        </div>
+                                        <div className="info-wine">
+                                            <h1>Mi Terruño</h1>
+                                            <h3 className="category">{wine.category}</h3>
+                                            <h3 className="grape-type">{wine.grapeType}</h3>
+                                            <p className="description">{wine.description}</p>
+                                            <h4>${wine.price}</h4>
+                                            <abbr title="Contactar con el vendedor">
+                                                <button className= "m-i-butt" type="submit" onClick={() => handleListClik(wine.name)}> Agregar a la lista</button>
+                                            </abbr>
+                                        </div>
+                                    </div>
                                 </div>
+                                
                             )
                         }) 
                     ) : (
                         <li>No hay vinos disponibles</li>
                     )
                 }
-            </div>
+                {
+                    image && (
+                    <div className="image-zoom-cont" onClick={handleCloseImage}>
+                        <div className="image-zoom">
+                            <img src={image} onClick={console.log()}/>
+                        </div>
+                    </div>
+                )}
+                
         </div>
     )
 }

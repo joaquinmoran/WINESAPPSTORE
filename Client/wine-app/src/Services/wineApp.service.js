@@ -16,6 +16,8 @@ class WinesAppService {
                 },
             )
             .then((response) => {
+                const token = response.data.data.token;
+                axios.defaults.headers.common['auth-token'] = token;
                 return response;
             });
     }
@@ -37,18 +39,46 @@ class WinesAppService {
             });
     }
 
-    getWinesList() {
+    getWinesList(token) {
         return axios 
             .get(
                 API_URL + '/list_wines',
                 {
-
+                    headers: {
+                        Authorization: "Bearer" + `${token}`,
+                        "Content-Type": "application/json"
+                    }
                 },
             )
             .then((response) => {
-                console.log('succesful.' + response.data);
+                console.log('succesful.' + response.data, token) ;
                 return response;
             })
+    }
+
+    addWineToCart(wineName) {
+        return axios 
+            .post(
+                API_URL + '/add_wine_to_cart',
+                {
+                    wineName,
+                }
+            )
+            .then((response) => {
+                return response;
+            });
+    }
+
+    getWinesFromCart() {
+        return axios
+            .get(
+                API_URL + '/get_cart_wines',
+                {},
+            )
+            .then((response) => {
+                console.log('servicedata:', response.data, response.status);
+                return response.data;
+            });
     }
 }
 

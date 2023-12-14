@@ -6,6 +6,10 @@ const Wine = require('./models/wineModel');
 const Cart = require('./models/addWineToCart');
 const bcrypt = require('bcrypt');
 const cors = require('cors')
+const jwt = require('jsonwebtoken');
+const verifyToken = require('./authMiddleware');
+
+const secretKey = '41322884jm';
 
 const app = express();
 
@@ -25,9 +29,10 @@ app.post('/create_user', async (req, res) => {
         const newUser = new User({userName, email, age, password: hashedPassword});
         await newUser.save();
         if(!newUser){
-            res.status(400).json({message: 'Existing username'})
+            return res.status(400).json({message: 'Existing username'})
         }
-        res.status(201).json({message: 'User load successfully'});
+        const token = jwt.sign({userId: newUser.id}, secretKey, {expiresIn: '1h'});
+        res.status(201).json(token ,{message: 'User load successfully'});
     }catch (error){
         res.status(500).json({message: 'Error trying to load a user'});
     }
@@ -50,7 +55,9 @@ app.post('/login', async(req, res) => {
             bcrypt.compare(password, user.password)
             .then((match) => {
                 if(match){
-                    return res.status(200).json(user);
+                    const token = jwt.sign({userId: user.id}, secretKey, {expiresIn: "3600S"});
+                    console.log('token del back:',token)
+                    res.header('auth-token', token).json({error: null , data: {token} });
                 } else {
                     res.status(400).json({message: 'Incorrect Password'});
                 }
@@ -78,7 +85,8 @@ app.delete('/delete_user/:id', async (req, res) => {
     }
 });
 
-app.get('/list_wines', async(req, res) => {
+
+app.get('/list_wines', verifyToken , async(req, res) => {
     try{
         const winesList = await Wine.find();
         res.status(200).json(winesList);
@@ -89,11 +97,21 @@ app.get('/list_wines', async(req, res) => {
 
 app.post('/add_wine_to_cart', async(req, res) => {
     try{
-        const {name} = req.body;
-        const cartList = await Cart.addWineInListCart({name});
+        const name = req.body;
+        const cartList = await Cart.addWineInListCart(name.wineName);
         res.status(200).json(cartList);
     }catch (error) {
         res.status(500).json({message: "Error trying to add a wine"});
+    }
+})
+
+app.get('/get_cart_wines', async(req, res) => {
+    try {
+        const winesList = await Cart.getListOfWines();
+        console.log(winesList);
+        res.status(200).json(winesList);
+    }catch (error) {
+        res.status(500).json({message: "Error geting the wines from cart list"});
     }
 })
 

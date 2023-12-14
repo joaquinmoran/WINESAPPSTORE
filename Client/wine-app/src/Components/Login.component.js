@@ -14,6 +14,8 @@ export default function Login() {
         console.log(name);
     }
 
+
+
     function handleChangeUserPassword(event) {
         setPassword(event.target.value);
         console.log(password);
@@ -34,7 +36,7 @@ export default function Login() {
             (response) => {
                 console.log(response.status);
                 if (response.status === 200) {    
-                    console.log('succesful.');
+                    localStorage.setItem('token', response.data.data.token)
                     navigate('/store');
                 }
                 if(response.status === 400) {
