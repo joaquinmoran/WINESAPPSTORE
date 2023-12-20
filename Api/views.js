@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt');
 const cors = require('cors')
 const jwt = require('jsonwebtoken');
 const verifyToken = require('./authMiddleware');
+const Order = require('./models/orderModel');
 
 const secretKey = '41322884jm';
 
@@ -86,7 +87,7 @@ app.delete('/delete_user/:id', async (req, res) => {
 });
 
 
-app.get('/list_wines', verifyToken , async(req, res) => {
+app.get('/list_wines', async(req, res) => {
     try{
         const winesList = await Wine.find();
         res.status(200).json(winesList);
@@ -95,10 +96,21 @@ app.get('/list_wines', verifyToken , async(req, res) => {
     }
 })
 
+app.post('/order', verifyToken, async(req,res) => {
+    try {
+        const userId = req.user;
+        const winesIds = await Cart.getWinesIds();
+        new Order({user: userId, wines: winesIds});
+        res.status(200).json({message: 'order loaded.'});
+    } catch (error) {
+        res.status(500).json({message: 'error while loading the order'});
+    }
+})
+
 app.post('/add_wine_to_cart', async(req, res) => {
     try{
-        const name = req.body;
-        const cartList = await Cart.addWineInListCart(name.wineName);
+        const id = req.body.wineId;
+        const cartList = await Cart.addWineInListCart(id);
         res.status(200).json(cartList);
     }catch (error) {
         res.status(500).json({message: "Error trying to add a wine"});
@@ -115,10 +127,10 @@ app.get('/get_cart_wines', async(req, res) => {
     }
 })
 
-app.delete('/delete_wine_from_cart/:name', async(req, res) => {
+app.delete('/delete_wine_from_cart/:id', async(req, res) => {
     try{
-        const {name} = req.params;
-        const cartList = await Cart.deleteWineOfListCart(name);
+        const id = req.params;
+        const cartList = await Cart.deleteWineOfListCart(id);
         res.status(200).json(cartList);
     }catch (error) {
         res.status(500).json({message: "Error trying to delete a wine from cart"});

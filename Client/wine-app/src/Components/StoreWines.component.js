@@ -14,7 +14,6 @@ export default function StoreWines() {
         const userToken = localStorage.getItem('token');
         WinesAppService.getWinesList(userToken).then(
             (response) => {
-                
                 if (response.status === 200) {
                     console.log(response.data);
                     setWines(response.data);
@@ -35,10 +34,11 @@ export default function StoreWines() {
         setImage(null);
     }
 
-    function handleListClik(wineName) {
-        WinesAppService.addWineToCart(wineName).then(
+    function handleListClik(wineId) {
+        console.log(wineId);
+        WinesAppService.addWineToCart(wineId).then(
             (response) => {
-                console.log('added.', wineName)
+                console.log('added.', wineId)
             })
             .catch((error) => {
                 alert('No se pudo agregar el vino, intente nuevamente en unos minutos')
@@ -90,7 +90,7 @@ export default function StoreWines() {
                                             <p className="description">{wine.description}</p>
                                             <h4>${wine.price}</h4>
                                             <abbr title="Contactar con el vendedor">
-                                                <button className= "m-i-butt" type="submit" onClick={() => handleListClik(wine.name)}> Agregar a la lista</button>
+                                                <button className= "m-i-butt" type="submit" onClick={() => handleListClik(wine._id)}> Agregar a la lista</button>
                                             </abbr>
                                         </div>
                                     </div>

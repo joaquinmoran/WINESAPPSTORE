@@ -11,6 +11,7 @@ const wineSchema = new mongoose.Schema({
     img: String
 });
 
+
 const Wine = mongoose.model('Wine', wineSchema);
 
 module.exports = Wine;

@@ -47,6 +47,10 @@ export default function WinesApp(){
             {showSignin && <Signin />}
         </div>
 
+        <button className='ow-buttn'>
+            Nuestros Productos
+        </button>
+
         {/* <footer  style={{backgroundColor: 'black'}}>
             Hola
         </footer> */}

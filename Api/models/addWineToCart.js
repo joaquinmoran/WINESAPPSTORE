@@ -1,13 +1,15 @@
 const Wine = require('./wineModel');
 
-const wineList = []
+const wineList = [];
+const winesIds = [];
 
-async function addWineInListCart(name){
+async function addWineInListCart(wineId){
     try{
-        const wine = await Wine.findOne({name});
+        winesIds.push(wineId);
+        console.log('id:',wineId);
+        const wine = await Wine.findById(wineId);
         if(wine) {
             wineList.push(wine);
-            return wineList;
         }else {
             console.log('No stock, sorry');
         }
@@ -16,10 +18,13 @@ async function addWineInListCart(name){
     }
 }
 
-async function deleteWineOfListCart(name) {
-    try {
-        const indexToDelete = wineList.findIndex(wine => wine.name === name);
+async function getWinesIds() {
+    return winesIds;
+}
 
+async function deleteWineOfListCart(id) {
+    try {
+        const indexToDelete = wineList.findIndex(wine => wine._id === id);
         if(indexToDelete !== -1){
             wineList.splice(indexToDelete, 1);y
             console.log("Deleted")
@@ -39,6 +44,7 @@ async function getListOfWines() {
 
 module.exports = {
     addWineInListCart,
+    getWinesIds,
     deleteWineOfListCart,
     getListOfWines,
 }

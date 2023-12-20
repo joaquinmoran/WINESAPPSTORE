@@ -56,12 +56,12 @@ class WinesAppService {
             })
     }
 
-    addWineToCart(wineName) {
+    addWineToCart(wineId) {
         return axios 
             .post(
                 API_URL + '/add_wine_to_cart',
                 {
-                    wineName,
+                    wineId,
                 }
             )
             .then((response) => {
@@ -79,6 +79,31 @@ class WinesAppService {
                 console.log('servicedata:', response.data, response.status);
                 return response.data;
             });
+    }
+
+    deleteWineFromCart(wineId) {
+        return axios
+            .delete(
+                API_URL + `/delete_wine_from_cart/${wineId}`,
+                {},   
+            )
+            .then(() => {
+                console.log('wine deleted.');
+            })
+
+    }
+
+    saveOrder(token) {
+        return axios
+            .post(
+                API_URL + '/order',
+                {
+                    headers: {
+                        Authorization: "Bearer" + `${token}`,
+                        "Content-Type": "application/json"
+                    }
+                }
+            )
     }
 }
 
