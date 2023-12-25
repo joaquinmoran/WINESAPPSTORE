@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import WinesAppService from '../Services/wineApp.service';
 import wineAppService from "../Services/wineApp.service";
 import './ShowCart.css'
@@ -7,7 +7,8 @@ import './ShowCart.css'
 export default function ShowCart() {
 
     const navigate = useNavigate();
-
+    const location = useLocation();
+    const userToken = location.state?.userToken || '';
     const [ cartWines, setCartWines] = useState([]);
     const [ total, setTotal] = useState(0);
     const [ showTotal, setShowTotal ] = useState(false);
@@ -15,34 +16,41 @@ export default function ShowCart() {
     function getWinesList() {
         WinesAppService.getWinesFromCart().then(
             (response) => {
-                console.log('data:',response);
-                setCartWines(response);
+                console.log('data:',response.wines);
+                setCartWines(response.wines);
+                console.log('CARTWINES', cartWines);
             }
         )
     }
 
-    function handleDeleteClick(index, wineId) {
-        setCartWines(prevList => prevList.filter((_,i) => i !== index)) 
-        wineAppService.deleteWineFromCart(wineId);
+    function handleDeleteClick(wineId) {
+        wineAppService.deleteWineFromCart(wineId,userToken).then(
+            (response) => {
+                console.log('RESPONSE',response);
+                console.log('responseeee',response.data.newCart);
+                setCartWines(response.data.newCart);
+            }
+        )
     }
 
     function handleTotal() {
-       const prices = cartWines.map((wine) => wine.price);
+        console.log(cartWines);
+        const prices = cartWines.map((wine) => wine.price);
 
-       const total = prices.reduce((accum, price) => accum + price, 0);
-       console.log(total);
-       setTotal(total);
-       setShowTotal(true);
+        const total = prices.reduce((accum, price) => accum + price, 0);
+        console.log(total);
+        setTotal(total);
+        setShowTotal(true);
     }
 
     function handleBackClick() {
-        navigate('/store');
+        navigate('/store', { state: {userToken} });
     }
 
     function handleOrderClick() {
-        const userToken = localStorage.getItem('token');
         WinesAppService.saveOrder(userToken).then(
             (response) => {
+                console.log('response:',response);
 
         })
     }
@@ -80,11 +88,12 @@ export default function ShowCart() {
                     <tbody>
                         {cartWines.map((wine, index) => (
                             <tr>
-                                <td key={index}>{wine.name}</td>
+                                <td key={index}>{wine.wine.name}</td>
+                                <td>Cant: {wine.quantity}</td>
                                 <td>
-                                    <button className="del-button" onClick={() => handleDeleteClick(index, wine.name)}>Borrar</button>
+                                    <button className="del-button" onClick={() => handleDeleteClick(wine.wine._id)}>Borrar</button>
                                 </td>
-                                <td>${wine.price}</td>
+                                <td>${wine.wine.price}</td>
                             </tr>
                             
                         ))}

@@ -17,6 +17,7 @@ class WinesAppService {
             )
             .then((response) => {
                 const token = response.data.data.token;
+                console.log(response.data.data.token);
                 axios.defaults.headers.common['auth-token'] = token;
                 return response;
             });
@@ -56,11 +57,15 @@ class WinesAppService {
             })
     }
 
-    addWineToCart(wineId) {
+    addWineToCart(wineId,token) {
         return axios 
             .post(
-                API_URL + '/add_wine_to_cart',
-                {
+                API_URL + '/add_to_cart',
+                {   
+                    headers: {
+                        Authorization: "Bearer" + `${token}`,
+                        "Content-Type": "application/json"
+                    },
                     wineId,
                 }
             )
@@ -81,14 +86,20 @@ class WinesAppService {
             });
     }
 
-    deleteWineFromCart(wineId) {
+    deleteWineFromCart(wineId, token) {
         return axios
             .delete(
                 API_URL + `/delete_wine_from_cart/${wineId}`,
-                {},   
+                {
+                    headers: {
+                        Authorization: "Bearer" + `${token}`,
+                        "Content-Type": "application/json"
+                    }
+                },   
             )
-            .then(() => {
+            .then((response) => {
                 console.log('wine deleted.');
+                return response;
             })
 
     }
@@ -102,6 +113,10 @@ class WinesAppService {
                         Authorization: "Bearer" + `${token}`,
                         "Content-Type": "application/json"
                     }
+                }
+            ).then( 
+                (response) => {
+                    console.log(response.data);
                 }
             )
     }

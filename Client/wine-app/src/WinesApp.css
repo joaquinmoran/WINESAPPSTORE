@@ -35,7 +35,6 @@ body {
 
 
 .show-link{
-    margin-right: 8px;
     text-decoration: none;
     padding: 8px;
     color: white;
@@ -87,11 +86,10 @@ button {
 }
 
 .signin-link {
-    margin-right: 2px;
     text-decoration: none;
     padding: 3px;
     width: 70px;
-    margin-right: 15px;
+    margin-right: 40px;
     border-radius: 50px;
     border: solid 0px;
     border-color: blueviolet;

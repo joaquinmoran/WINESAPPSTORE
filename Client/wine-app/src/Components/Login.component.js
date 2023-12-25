@@ -34,17 +34,19 @@ export default function Login() {
 
         WinesAppService.login(name, password).then(
             (response) => {
-                console.log(response.status);
-                if (response.status === 200) {    
-                    localStorage.setItem('token', response.data.data.token)
-                    navigate('/store');
+                try {
+                    console.log(response);
+                    if(response.status === 200){
+                        const authToken = response.data.data.token;
+                        console.log('token',authToken);
+                        navigate('/store', { state: {authToken} });
+                    }
+                    if(response.status === 400) {
+                        alert("Nombre de usuario o contraña incorrectos");
+                    }
+                } catch(eror) {
+                    alert('Usuario no registrado, cree una cuenta');
                 }
-                if(response.status === 400) {
-                    alert("Nombre de usuario o contraña incorrectos");
-                }
-            })
-            .catch((error) => {
-                alert('Usuario no registrado, cree una cuenta');
             })
         
     }
@@ -95,13 +97,13 @@ export default function Login() {
                     </div>
                 </div>
                 <hr />
-                    <div className='div-butt-create'>
+                    {/* <div className='div-butt-create'>
                             <label className='registred-label'>
                                 No tienes una cuenta?
                                 <Link to='/create_account' style={{color: 'white'}} > Registrarse </Link>
                                 
                             </label>
-                    </div>
+                    </div> */}
             </div>
 
     )

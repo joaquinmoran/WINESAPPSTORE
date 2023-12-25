@@ -33,7 +33,7 @@ app.post('/create_user', async (req, res) => {
             return res.status(400).json({message: 'Existing username'})
         }
         const token = jwt.sign({userId: newUser.id}, secretKey, {expiresIn: '1h'});
-        res.status(201).json(token ,{message: 'User load successfully'});
+        res.status(200).header('auth-token', token).json({error: null, data: {token} ,message: 'User load successfully'});
     }catch (error){
         res.status(500).json({message: 'Error trying to load a user'});
     }
@@ -98,40 +98,95 @@ app.get('/list_wines', async(req, res) => {
 
 app.post('/order', verifyToken, async(req,res) => {
     try {
-        const userId = req.user;
-        const winesIds = await Cart.getWinesIds();
-        new Order({user: userId, wines: winesIds});
-        res.status(200).json({message: 'order loaded.'});
+        const user_id = req.user.userId;
+        console.log('userid:', user_id);
+        const user = await User.findById(user_id);
+        console.log(user);
+        if(!user) {
+            throw new Error('user not found.');
+        }
+        const wines_ids = user.cart.map(item => item.wine);
+        console.log('Winess:',wines_ids); // Extraer solo los IDs de los vinos
+        const newOrder = new Order({
+            status: true,
+            user: user_id,
+            wines: wines_ids,
+        });
+        console.log('Order:',newOrder);
+        await newOrder.save();
+        user.cart = [];
+        await user.save();
+        res.status(200).json({message: 'order saved'});
     } catch (error) {
         res.status(500).json({message: 'error while loading the order'});
     }
 })
 
-app.post('/add_wine_to_cart', async(req, res) => {
-    try{
-        const id = req.body.wineId;
-        const cartList = await Cart.addWineInListCart(id);
-        res.status(200).json(cartList);
-    }catch (error) {
-        res.status(500).json({message: "Error trying to add a wine"});
-    }
-})
-
-app.get('/get_cart_wines', async(req, res) => {
+app.post('/add_to_cart', verifyToken, async(req,res) => {
     try {
-        const winesList = await Cart.getListOfWines();
-        console.log(winesList);
-        res.status(200).json(winesList);
-    }catch (error) {
-        res.status(500).json({message: "Error geting the wines from cart list"});
+        const user_id = req.user.userId;
+        console.log('userid:', user_id);
+        const user = await User.findById(user_id);
+        if(!user) {
+            throw new Error('user not found.');
+        }
+        console.log('antes',user.cart)
+        const wine_id = req.body.wineId;
+        console.log('WINE ID:', wine_id);
+        const wine_indx = user.cart.findIndex(item => item.wine.toString() === wine_id);
+        if(wine_indx !== -1) {
+            user.cart[wine_indx].quantity++;
+        } else {
+            user.cart.push({ wine: wine_id });
+        }
+        await user.save();
+        res.status(200).json({message:'wine added to cart'})
+    } catch (error) {
+        console.error(error);
+        throw new Error('error adding wine to cart.');
     }
 })
 
-app.delete('/delete_wine_from_cart/:id', async(req, res) => {
+
+
+app.get('/get_cart_wines', verifyToken, async(req, res) => {
+    try {
+        const user_id = req.user.userId;
+        const user = await User.findById(user_id).populate('cart.wine');
+        if(!user) {
+            throw new Error('user not found.');
+        }
+        const wines = user.cart;
+        res.status(200).json({wines})
+    }catch (error) {
+        res.status(500).json({message: "Error getting the wines from cart list"});
+    }
+})
+
+app.delete('/delete_wine_from_cart/:id', verifyToken ,async(req, res) => {
     try{
-        const id = req.params;
-        const cartList = await Cart.deleteWineOfListCart(id);
-        res.status(200).json(cartList);
+        const user_id = req.user.userId;
+        const user = await User.findById(user_id);
+        if(!user) {
+            throw new Error('user not found');
+        }
+        const wine_id = req.params.id;
+        console.log('ide del vino', wine_id);
+        const wine_indx = user.cart.findIndex(item => item.wine.toString() === wine_id);
+        console.log('wine idd:',wine_indx);
+        if(user.cart[wine_indx].quantity > 1) {
+            user.cart[wine_indx].quantity--;
+        } else {
+            user.cart.splice(wine_indx, 1);
+        }
+    
+        console.log('cart in BD:', user.cart);
+        await user.save();
+
+
+        const userCart = await User.findById(user_id).populate('cart.wine');
+        const newCart = userCart.cart;
+        res.status(200).json({newCart});
     }catch (error) {
         res.status(500).json({message: "Error trying to delete a wine from cart"});
     }

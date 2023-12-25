@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,  useLocation  } from "react-router-dom";
 import WinesAppService from '../Services/wineApp.service';
 import './StoreWines.css'; 
 
 export default function StoreWines() {
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const userToken = location.state?.authToken || '';
     const [ wines, setWines ]  = useState([]);
     const [ image, setImage ] = useState(null);
     const [ listWines, setListWines ] = useState([]);
 
     function getAllWines() {
-        const userToken = localStorage.getItem('token');
         WinesAppService.getWinesList(userToken).then(
             (response) => {
                 if (response.status === 200) {
@@ -36,7 +37,7 @@ export default function StoreWines() {
 
     function handleListClik(wineId) {
         console.log(wineId);
-        WinesAppService.addWineToCart(wineId).then(
+        WinesAppService.addWineToCart(wineId, userToken).then(
             (response) => {
                 console.log('added.', wineId)
             })
@@ -46,7 +47,7 @@ export default function StoreWines() {
     }
 
     function handleCartClick() {
-        navigate('/cart');
+        navigate('/cart', {state: {userToken}});
     }
 
     // function handleDeleteItemClick(index) {
