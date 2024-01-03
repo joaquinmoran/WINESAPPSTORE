@@ -50,6 +50,7 @@ export default function ShowCart() {
     function handleOrderClick() {
         WinesAppService.saveOrder(userToken).then(
             (response) => {
+                
                 console.log('response:',response);
 
         })
@@ -69,6 +70,9 @@ export default function ShowCart() {
                     </Link>
                     <Link to='/us' className='us-link'>
                         Acerca de nosotros
+                    </Link>
+                    <Link to='/' className="home"> 
+                        Inicio
                     </Link>
             </div>  
         </nav> 

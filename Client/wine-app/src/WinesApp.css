@@ -1,26 +1,44 @@
-@import url('https://fonts.googleapis.com/css?family=Domine');
+@import url('https://fonts.googleapis.com/css?family=Belgrano');
 @import url('https://fonts.googleapis.com/css?family=Diphylleia');
+@import url('https://fonts.googleapis.com/css?family=Charm');
 
-body {
+
+body{
     margin: 0;
     padding: 0;
 }
-
-.container {    
-  background-image: url('../public/images/winaryMiterruño.jpg');
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-size: cover;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  color: white;
+.container {
+    background-image: url('../public/images/winaryMiterruño2.jpg');
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
 }
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px); /* Efecto de desenfoque en el fondo */
+    transition: backdrop-filter 0.3s ease-in-out; /* Agregar transición suave */
+}
+
+.container::before {
+    backdrop-filter: blur(5px); /* Efecto de desenfoque en el fondo */
+}
+
+.container:not(:has(.container-us))::before {
+    backdrop-filter: none; /* Eliminar el desenfoque cuando el componente no está presente */
+  }
 
 
 .navbar {
+    font-family: 'Charm';
     position: fixed;
     top: 0;
     left: 0;
@@ -30,23 +48,40 @@ body {
     align-items: center;
     padding: 10px 20px;
     width: 100%;
-    background-color: #5f2669;
+    height: 3%;
+    background-color: #2f1234;
 }
-
 
 .show-link{
     text-decoration: none;
+    font-size: 15px;
     padding: 8px;
     color: white;
     margin-right: 15px;
 }
 
 .show-link:hover {
-    border-radius: 50px; 
-    background-color: rgb(152, 97, 219);
+    border-radius: 10px; 
+    background-color: rgb(49, 32, 70);
 }
 
 .us-link {
+    font-family: 'Charm';
+    background-color: transparent;
+    border: none;
+    margin-right: 8px;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 8px;
+    color: white;
+    margin-right: 15px;
+}
+
+.us-link:hover {
+    border-radius: 10px; 
+    background-color: rgb(49, 32, 70);
+}
+.home {
     margin-right: 8px;
     text-decoration: none;
     padding: 8px;
@@ -54,7 +89,7 @@ body {
     margin-right: 15px;
 }
 
-.us-link:hover {
+.home:hover {
     border-radius: 50px; 
     background-color: rgb(152, 97, 219);
 }
@@ -65,6 +100,7 @@ button {
 
 
 .login-link {
+    font-family: 'Belgrano';
     margin-right: 8px;
     text-decoration: none;
     padding: 3px;
@@ -86,6 +122,7 @@ button {
 }
 
 .signin-link {
+    font-family: 'Belgrano';
     text-decoration: none;
     padding: 3px;
     width: 70px;
@@ -106,14 +143,52 @@ button {
 }
 
 .ow-buttn {
-    width: 200px;
-    height: 50px;
     position: absolute;
+    width: 25%;
+    height: 10%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background-color: transparent;
+    border-radius: 40px;
+    border-color: #6512b2;
 }
 
+.ow-buttn {
+  background-color: black;
+  border-radius: 5px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-family: 'Charm';
+  font-size: 25px;
+  font-weight: 500;
+  height: 4rem;
+  padding: 0 1.6rem;
+  text-align: center;
+  text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+  transition: all .5s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.ow-buttn:hover {
+    background-image: url('../public/images/buttonImage.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: rgba(0, 0, 0, 0.5) 0 1px 30px;
+    transition: 5s;
+}
+
+@media (min-width: 768px) {
+  .ow-buttn {
+    padding: 0 2.5rem;
+  }
+}
 
 footer {
     position: absolute;
@@ -123,5 +198,6 @@ footer {
     background-color: #333;
     color: white;
     text-align: center;
-  }
+}
+
 

@@ -42,7 +42,7 @@ export default function StoreWines() {
                 console.log('added.', wineId)
             })
             .catch((error) => {
-                alert('No se pudo agregar el vino, intente nuevamente en unos minutos')
+                alert('Para agregar vinos al carrito ingrese o cree una cuenta')
             })
     }
 
@@ -69,6 +69,9 @@ export default function StoreWines() {
                     </Link>
                     <Link to='/us' className='us-link'>
                         Acerca de nosotros
+                    </Link>
+                    <Link to='/' className="home"> 
+                        Inicio
                     </Link>
             </div>  
             <button className="cart-button" onClick={() => handleCartClick()}>

@@ -1,44 +1,54 @@
 @import url('https://fonts.googleapis.com/css?family=Diphylleia');
 
 .login-container {
-    background-color: rgba(white, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    border-radius: 50px;
-    left: 82%;
-    position: absolute;
+    background-color: transparent;
+    left: 85%;
+    top: 50%;
+    position: fixed;
     transform: translate(-50%, -50%);
-    height: 100%;
-    width: 38%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 30%;
+    height: 100%;
 }
-
-
 
 .lg-con {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
-    border-radius: 50px;
-    height: 500px;
-    width: 60%;
+    background-color: rgb(255, 251, 251);
+    border-radius: 40px;
+    height: 75%;
+    width: 80%;
     color: black;
-   
+}
+
+.user-label {
+    position: relative;
+}
+
+.user-label .icon{
+    position: absolute;
+    top: 90%;
+    left: 90%;
+    transform: translateY(-50%);
+    z-index: 1;
 }
 
 .log-inputs {
     color: rgb(0, 0, 0);
-    background-color: rgba(196, 196, 196, 0.651);
+    background-color: rgba(196, 196, 196, 0);
     border: none;
     border-radius: 20px;
-    border-bottom: 2px solid rgb(255, 255, 255);
-    width: 250px;
-    padding: 5px;
+    border-bottom: 2px solid rgb(0, 0, 0);
+    width: 75%;
+    padding: 10px;
     outline: none;
-    font-family: 'Diphylleia';
+    margin-bottom: 10%;
+    margin-top: 10%;
+    box-shadow: 5px 5px 5px rgb(105, 104, 104);
 }
 
 .log-inputs:focus {
@@ -46,37 +56,32 @@
 }
 
 .log-inputs::placeholder {
-    color: rgb(0, 0, 0);
+    color: rgb(19, 19, 19);
     text-align: start;
 }
 
-.registred-label {
-    color: rgb(0, 0, 0);
-    font-size: 17px;
-    margin-bottom: 200px;   
-    margin-left: 150px;
-}
-
-.user-label {
-    font-size: 15px;
-}
-
 .pw-label {
-    font-size: 15px;
+    position: relative;
 }
 
-.div-butt-in {
-    margin-top: 50px;
-    margin-bottom: 50px;
+.pw-label .icon {
+    position: absolute;
+    top: 90%;
+    left: 85%;
+    transform: translateY(-50%);
+    z-index: 1;
 }
 
-.link-create-acc {
-    color: rgb(0, 0, 0);
+.pw-label .icon:hover {
+    cursor: pointer;
 }
+
+
 
 .button-in {
-    background-color: transparent;
-    width: 150px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 50px;
+    width: 30%;
     transition-duration: 0.8s;
     border: none;
     border-color: rgb(56, 0, 52);
@@ -85,22 +90,29 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: black;
     margin-top: 40px;
+}.button-in .butt-icon {
+    color: white;
 }
 
 .button-in:hover {
-    background-color: beige;
+    background-color: rgb(78, 55, 93);
     border-radius: 50px;
-    color: black
+    color: black;
+    width: 40%;
+    box-shadow: 2px 2px 2px rgb(105, 104, 104);
+
+    
 }
 
 .login-area {
     opacity: 0;
     max-height: 0;
     overflow: hidden;
-    transition: opacity 0.1s ease, max-height 0.1s ease;
+    transition: opacity 1s ease, max-height 1s ease;
 }
   
 .login-area.active {
     opacity: 1;
     max-height: 200px;
 }
+

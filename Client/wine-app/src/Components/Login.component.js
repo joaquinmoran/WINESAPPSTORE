@@ -1,5 +1,7 @@
 import React , { Component, useState   } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash, faRightToBracket, faUser } from '@fortawesome/free-solid-svg-icons';
 import WinesAppService from '../Services/wineApp.service';
 import './Login.css';
 
@@ -8,13 +10,12 @@ export default function Login() {
     const navigate = useNavigate();
     const [ name, setName ] = useState("");
     const [ password, setPassword ] = useState("");
+    const [ showPassword, setShowPassword ] = useState(false);
 
     function  handleChangeUser(event) {
         setName(event.target.value);
         console.log(name);
     }
-
-
 
     function handleChangeUserPassword(event) {
         setPassword(event.target.value);
@@ -48,28 +49,30 @@ export default function Login() {
                     alert('Usuario no registrado, cree una cuenta');
                 }
             })
-        
+    }
+
+    function handelVisibilityCllick() {
+        setShowPassword(!showPassword);
     }
 
     return (
+        
         <div className='login-container'>
             <div className='lg-con'>
-                    <div className='user-input'>
                         <form style={{textAlign: 'center'}}>
                         <div>
                             <label className='user-label'>
-                            Nombre de usuario o mail
-                            <br />
-                            <br />
+                                Nombre de usuario o mail
                                 <input
                                     className='log-inputs'
                                     type='text'
                                     id='user_name'
                                     placeholder='Usuario'
-                                    name='user'
+                                    autoComplete='no'
                                     onChange={handleChangeUser.bind(this)}
                                     required
                                 />
+                                <FontAwesomeIcon icon={faUser} className='icon'/>
                             </label>
                         </div>
                         <div>
@@ -79,22 +82,24 @@ export default function Login() {
                             <br />
                                 <input 
                                     className='log-inputs'
-                                    type='password'
+                                    type= {showPassword ? 'text' : 'password'}
                                     id='password'
                                     placeholder='Contraseña'
-                                    name='passw'
                                     onChange={handleChangeUserPassword.bind(this)}
                                     required
                                 />
+                                 <FontAwesomeIcon 
+                                    icon={showPassword ? faEyeSlash : faEye} 
+                                    className='icon'
+                                    onClick={handelVisibilityCllick}
+                                    />
                             </label>
                         </div>
-                            <div className='div-butt-in'>
-                                <button type='button' className='button-in' onClick={handleLogSubmit}> 
-                                        Entrar 
-                                </button>
-                            </div>
+                        <button type='button' className='button-in' onClick={handleLogSubmit}> 
+                             <FontAwesomeIcon icon={faRightToBracket }  className='butt-icon'/>
+                        </button>
+                  
                         </form>
-                    </div>
                 </div>
                 <hr />
                     {/* <div className='div-butt-create'>
