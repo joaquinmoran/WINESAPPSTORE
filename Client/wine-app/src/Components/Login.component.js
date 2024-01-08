@@ -1,7 +1,7 @@
 import React , { Component, useState   } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash, faRightToBracket, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faEye, faEyeSlash, faRightToBracket, faUser } from '@fortawesome/free-solid-svg-icons';
 import WinesAppService from '../Services/wineApp.service';
 import './Login.css';
 
@@ -96,7 +96,7 @@ export default function Login() {
                             </label>
                         </div>
                         <button type='button' className='button-in' onClick={handleLogSubmit}> 
-                             <FontAwesomeIcon icon={faRightToBracket }  className='butt-icon'/>
+                             <FontAwesomeIcon icon={faCheck}  className='butt-icon'/>
                         </button>
                   
                         </form>

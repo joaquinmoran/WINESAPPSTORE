@@ -6,6 +6,8 @@ export default function UsInfo() {
         <div id="container-us-id" className="container-us">
             <div className='divs'>
                 <h3 className='tittle'>Acerca de la Bodega</h3>
+                <hr style={{color: 'black'}} />
+                <li>mendoza</li>
             </div>
             <div className='divs'>
                 <h3 className='tittle'>Acerca de la Bodega</h3>

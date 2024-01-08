@@ -1,6 +1,8 @@
 import React , { Component, useState   } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import WinesAppService from '../Services/wineApp.service';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarDays, faCheck, faEnvelope, faEye, faEyeSlash, faMailBulk, faMailForward, faRightToBracket, faUser, faVoicemail } from '@fortawesome/free-solid-svg-icons';
 import './Signin.css';
 
 export default function Login() {
@@ -10,6 +12,7 @@ export default function Login() {
     const [ password, setPassword ] = useState("");
     const [ mail, setMail ] = useState("");
     const [ age, setAge ] = useState("");
+    const [ showPassword, setShowPassword ] = useState(false);
 
     function  handleChangeUser(event) {
         setName(event.target.value);
@@ -54,15 +57,18 @@ export default function Login() {
         
     }
 
+
+    function handelVisibilityCllick() {
+        setShowPassword(!showPassword);
+    }
+
     return (
         <div className='create-container'>
             <div className='cr-con'>
-                <form onSubmit={handleLogSubmit} style={{textAlign: 'center'}}>
+                <form  className= 'create-form' onSubmit={handleLogSubmit} style={{textAlign: 'center'}}>
                     <div className='user-input'>
                             <label className='user-label'>
                             Nombre de usuario
-                            <br />
-                            <br />
                                 <input
                                     className='create-inputs'
                                     type='text'
@@ -72,13 +78,12 @@ export default function Login() {
                                     onChange={handleChangeUser.bind(this)}
                                     required
                                 />
+                                <FontAwesomeIcon icon={faUser} className='user-icon'/>
                             </label>
                     </div>
                     <div className='mail-input'>
                             <label className='mail-label'>
-                            Mail
-                            <br />
-                            <br />
+                            Mail  <br />
                                 <input
                                     className='create-inputs'
                                     type='email'
@@ -88,13 +93,12 @@ export default function Login() {
                                     onChange={handleChangeMail.bind(this)}
                                     required
                                 />
+                                <FontAwesomeIcon icon={faEnvelope} className='mail-icon'/>
                             </label>
                     </div>
                     <div className='age-input'>
                             <label className='age-label'>
-                            Edad
-                            <br />
-                            <br />
+                            Edad <br />
                                 <input
                                     className='create-inputs'
                                     type='text'
@@ -104,34 +108,37 @@ export default function Login() {
                                     onChange={handleChangeAge.bind(this)}
                                     required
                                 />
+                                <FontAwesomeIcon  icon={faCalendarDays} className='age-icon' />
                             </label>
                     </div>
                     <div className='pw-input'> 
                             <label className='pw-label'>
                             Contraseña
-                            <br />
-                            <br />
                                 <input 
                                     className='create-inputs'
-                                    type='password'
+                                    type={showPassword ? 'text' : 'password'}
                                     id='password'
                                     placeholder='Contraseña'
                                     name='passw'
                                     onChange={handleChangeUserPassword.bind(this)}
                                     required
                                 />
+                                <FontAwesomeIcon 
+                                    icon={showPassword ? faEyeSlash : faEye} 
+                                    className='pw-icon'
+                                    onClick={handelVisibilityCllick}
+                                    />
                             </label>
                     </div>
                     <div style={{textAlign:'center'}}>
                         <div className='div-butt-create'>
                             <button type='button' className='button-create' onClick={handleLogSubmit}> 
-                                    Crear cuenta 
+                                    <FontAwesomeIcon icon={faRightToBracket } className='create-icon'/>
                             </button>
                         </div>
                     </div>
                 </form>
             </div>
-        <hr />
         </div>
 
     )

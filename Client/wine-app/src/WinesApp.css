@@ -6,6 +6,7 @@
 body{
     margin: 0;
     padding: 0;
+   
 }
 .container {
     background-image: url('../public/images/winaryMiterruño2.jpg');
@@ -16,6 +17,7 @@ body{
     flex-direction: column;
     height: 100%;
     width: 100%;
+
 }
 .container::before {
     content: '';
@@ -142,37 +144,42 @@ button {
     text-decoration: underline;
 }
 
-.ow-buttn {
+/* .ow-buttn {
     position: absolute;
-    width: 25%;
-    height: 10%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: transparent;
     border-radius: 40px;
     border-color: #6512b2;
-}
+} */
 
 .ow-buttn {
-  background-color: black;
-  border-radius: 5px;
-  border-style: none;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  cursor: pointer;
-  flex-shrink: 0;
-  font-family: 'Charm';
-  font-size: 25px;
-  font-weight: 500;
-  height: 4rem;
-  padding: 0 1.6rem;
-  text-align: center;
-  text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
-  transition: all .5s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(#2f1234, black);
+    border-radius: 15px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-family: 'Charm';
+    font-size: 25px;
+    font-weight: 500;
+    height: 6rem;
+    width: 30%;
+    padding: 0 1.6rem;
+    text-align: center;
+    transition: all .5s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
 .ow-buttn:hover {
@@ -184,20 +191,32 @@ button {
     transition: 5s;
 }
 
+.bars-icon {
+    color: white;
+    height: 100%;
+}
+
+.bars-icon:hover {
+    height: 110%;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.list-area {
+    /* ...otros estilos... */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.list-area.active {
+    opacity: 1;
+}
+
 @media (min-width: 768px) {
   .ow-buttn {
     padding: 0 2.5rem;
   }
 }
 
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px; /* Altura del footer */
-    background-color: #333;
-    color: white;
-    text-align: center;
-}
 
 

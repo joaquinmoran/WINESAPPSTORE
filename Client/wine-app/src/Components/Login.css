@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Diphylleia');
+@import url('https://fonts.googleapis.com/css?family=Farsan');
 
 .login-container {
     background-color: transparent;
@@ -23,6 +23,7 @@
     height: 75%;
     width: 80%;
     color: black;
+    font-family: 'Farsan';
 }
 
 .user-label {
@@ -32,7 +33,7 @@
 .user-label .icon{
     position: absolute;
     top: 90%;
-    left: 90%;
+    left: 88%;
     transform: translateY(-50%);
     z-index: 1;
 }
@@ -67,7 +68,7 @@
 .pw-label .icon {
     position: absolute;
     top: 90%;
-    left: 85%;
+    left: 84%;
     transform: translateY(-50%);
     z-index: 1;
 }
@@ -90,6 +91,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: black;
     margin-top: 40px;
+    
 }.button-in .butt-icon {
     color: white;
 }
