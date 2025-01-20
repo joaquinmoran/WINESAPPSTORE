@@ -4,7 +4,7 @@ const Wine = require('./wineModel');
 
 const userSchema = new mongoose.Schema({
     userName: {type: String, unique: true},
-    email: String,
+    tel: String,
     age: Number,
     password: String,
     cart: [{

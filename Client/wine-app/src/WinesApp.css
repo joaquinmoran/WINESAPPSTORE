@@ -1,43 +1,27 @@
-@import url('https://fonts.googleapis.com/css?family=Belgrano');
-@import url('https://fonts.googleapis.com/css?family=Diphylleia');
-@import url('https://fonts.googleapis.com/css?family=Charm');
-
-
-body{
+body {
     margin: 0;
-    padding: 0;
-   
+    padding: 0; 
 }
+
+
 .container {
-    background-image: url('../public/images/winaryMiterruño2.jpg');
-    background-position: center;
+    background-image: url('https://webimagemiterruno.s3.us-east-2.amazonaws.com/images/winaryMiterruno2.jpg');
     background-size: cover;
+    background-position: center;
     position: absolute;
     display: flex;
     flex-direction: column;
-    height: 100%;
     width: 100%;
-
+    height: 100vh;
 }
+
 .container::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    backdrop-filter: blur(5px); /* Efecto de desenfoque en el fondo */
-    transition: backdrop-filter 0.3s ease-in-out; /* Agregar transición suave */
+    transition: backdrop-filter 0.3s ease-in-out;
 }
-
-.container::before {
-    backdrop-filter: blur(5px); /* Efecto de desenfoque en el fondo */
-}
-
-.container:not(:has(.container-us))::before {
-    backdrop-filter: none; /* Eliminar el desenfoque cuando el componente no está presente */
-  }
-
 
 .navbar {
     font-family: 'Charm';
@@ -54,87 +38,38 @@ body{
     background-color: #2f1234;
 }
 
-.show-link{
-    text-decoration: none;
-    font-size: 15px;
-    padding: 8px;
-    color: white;
-    margin-right: 15px;
-}
-
-.show-link:hover {
-    border-radius: 10px; 
-    background-color: rgb(49, 32, 70);
-}
-
-.us-link {
-    font-family: 'Charm';
-    background-color: transparent;
-    border: none;
-    margin-right: 8px;
-    text-decoration: none;
-    font-size: 15px;
-    padding: 8px;
-    color: white;
-    margin-right: 15px;
-}
-
-.us-link:hover {
-    border-radius: 10px; 
-    background-color: rgb(49, 32, 70);
-}
-.home {
-    margin-right: 8px;
-    text-decoration: none;
-    padding: 8px;
-    color: white;
-    margin-right: 15px;
-}
-
-.home:hover {
-    border-radius: 50px; 
-    background-color: rgb(152, 97, 219);
-}
-
 button {
     cursor: pointer;
 }
 
+.top-nav-bar-right{
+    display: flex;
+    justify-content: center;
+    margin-right: 1.5vw;
+}
+
 
 .login-link {
-    font-family: 'Belgrano';
-    margin-right: 8px;
-    text-decoration: none;
-    padding: 3px;
-    width: 70px;
-    margin-right: 15px;
-    border-radius: 50px;
-    border: solid 0px;
-    border-color: blueviolet;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    width: 7vw;
+    border: none;
     background-color: transparent;
     color: white;
-    font-size: 15px;
+    font-size: 2vh;
 }
 
 .login-link:hover {
-    border-radius: 50px; 
-    border-color: black;
     background-color: transparent;
     text-decoration: underline;
 }
 
 .signin-link {
-    font-family: 'Belgrano';
-    text-decoration: none;
-    padding: 3px;
-    width: 70px;
-    margin-right: 40px;
-    border-radius: 50px;
-    border: solid 0px;
-    border-color: blueviolet;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    width: 7vw;
+    border: none;
     background-color: transparent;
     color: white;
-    font-size: 15px;
+    font-size: 2vh;
 }
 
 .signin-link:hover {
@@ -144,15 +79,9 @@ button {
     text-decoration: underline;
 }
 
-/* .ow-buttn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: transparent;
-    border-radius: 40px;
-    border-color: #6512b2;
-} */
+.ow-bttn-container {
+    margin-bottom: 84vh;
+}
 
 .ow-buttn {
     position: absolute;
@@ -165,30 +94,25 @@ button {
     background: linear-gradient(#2f1234, black);
     border-radius: 15px;
     border-style: none;
-    box-sizing: border-box;
     color: #FFFFFF;
     cursor: pointer;
-    flex-shrink: 0;
     font-family: 'Charm';
     font-size: 25px;
     font-weight: 500;
     height: 6rem;
     width: 30%;
     padding: 0 1.6rem;
-    text-align: center;
-    transition: all .5s;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
+    transition-duration: 0.5s;
 }
 
 .ow-buttn:hover {
-    background-image: url('../public/images/buttonImage.jpg');
+    background-image: url('https://webimagemiterruno.s3.us-east-2.amazonaws.com/images/buttonImage.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    box-shadow: rgba(0, 0, 0, 0.5) 0 1px 30px;
     transition: 5s;
+    height: 6.3rem;
+    width: 35%;
 }
 
 .bars-icon {
@@ -202,6 +126,8 @@ button {
     cursor: pointer;
 }
 
+
+
 .list-area {
     /* ...otros estilos... */
     opacity: 0;
@@ -212,11 +138,9 @@ button {
     opacity: 1;
 }
 
-@media (min-width: 768px) {
-  .ow-buttn {
-    padding: 0 2.5rem;
-  }
+footer {
+    bottom: 0;
+    width: 100%;
+    height: 16vh;
 }
-
-
 

@@ -9,6 +9,9 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken');
 const verifyToken = require('./authMiddleware');
 const Order = require('./models/orderModel');
+const nodemailer = require('nodemailer');
+const mt_email = 'miterrunorioiv@gmail.com'
+
 
 const secretKey = '41322884jm';
 
@@ -18,6 +21,7 @@ app.use(express.static('public'));
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 connectDB();
@@ -25,15 +29,15 @@ connectDB();
 
 app.post('/create_user', async (req, res) => {
     try{
-        const {userName, email, age, password} = req.body;
+        const {userName, tel, age, password} = req.body;
         const hashedPassword= await bcrypt.hash(password, 10);
-        const newUser = new User({userName, email, age, password: hashedPassword});
+        const newUser = new User({userName, tel, age, password: hashedPassword});
         await newUser.save();
         if(!newUser){
             return res.status(400).json({message: 'Existing username'})
         }
         const token = jwt.sign({userId: newUser.id}, secretKey, {expiresIn: '1h'});
-        res.status(200).header('auth-token', token).json({error: null, data: {token} ,message: 'User load successfully'});
+        res.status(200).header('Authorization', token).json({error: null, data: {token} ,message: 'User load successfully'});
     }catch (error){
         res.status(500).json({message: 'Error trying to load a user'});
     }
@@ -44,13 +48,16 @@ app.get('/get_users', async (req, res) => {
         const users = await User.find();
         res.status(201).json(users);
     }catch (error){
-        res.status(500).json({message: 'Error trying to show users'});
+        res.status(500).json({error: 'Error trying to show users'});
     }
 });
 
 app.post('/login', async(req, res) => {
     try{
         const {userName, password} = req.body;
+        // if(userName === '' || password === '') {
+        //     res.status(401).json({message: 'Wrong username or password'});
+        // } else {
         const user = await User.findOne({userName});
         if(user){
             bcrypt.compare(password, user.password)
@@ -58,15 +65,16 @@ app.post('/login', async(req, res) => {
                 if(match){
                     const token = jwt.sign({userId: user.id}, secretKey, {expiresIn: "3600S"});
                     console.log('token del back:',token)
-                    res.header('auth-token', token).json({error: null , data: {token} });
+                    res.header('Authorization', token).json({error: null , data: {token} });
                 } else {
                     res.status(400).json({message: 'Incorrect Password'});
                 }
             })
-        } else {
-            res.status(400).json({message: 'Incorrect username'});
+        }else{ 
+            res.status(401).json({message: 'Wrong username or password'});
         }
-    }catch (error){
+       // }
+    } catch (error){
         res.status(500).json({message: 'Error trying to login'});
     }
 });
@@ -105,45 +113,78 @@ app.post('/order', verifyToken, async(req,res) => {
         if(!user) {
             throw new Error('user not found.');
         }
-        const wines_ids = user.cart.map(item => item.wine);
-        console.log('Winess:',wines_ids); // Extraer solo los IDs de los vinos
+        const age = user.age
+        if(age < 18 ) {
+            res.status(400).json({messag: 'No puedes realizar un orden siendo menor de edad'})
+        }
+
+        const wines_data = user.cart.map(item => {
+            const { _id, wine, quantity } = item;
+            return {wine, quantity}
+        });
+
+        console.log('Wines data:',wines_data); // Extraer solo los IDs de los vinos
+
         const newOrder = new Order({
             status: true,
             user: user_id,
-            wines: wines_ids,
+            wines: wines_data,
         });
+        
         console.log('Order:',newOrder);
+        const wines = await Promise.all(wines_data.map(async wines => {
+            const wine_model = await Wine.findById(wines.wine)
+            const wine_name = wine_model ? wine_model.name : 'not found';
+            const quantity = wines.quantity;
+            return { wine_name, quantity }
+        }));
+
+        console.log("wines: " +     wines);
+
+        const order = {
+            userName: user.userName,
+            wines: wines
+        }
+
         await newOrder.save();
+        
+        console.log('better format order:', order);
+        
         user.cart = [];
         await user.save();
-        res.status(200).json({message: 'order saved'});
+        const user_newcart = user.cart
+        res.status(200).json({message: 'order saved', order, user_newcart});
     } catch (error) {
         res.status(500).json({message: 'error while loading the order'});
     }
 })
 
-app.post('/add_to_cart', verifyToken, async(req,res) => {
+app.post('/add_to_cart/:id', verifyToken, async(req,res) => {
     try {
+        const wine_id = req.params.id;
+        const quantity = parseInt(req.body.quantity, 10); // Convierte a entero
+        if (isNaN(quantity) || quantity <= 0) {
+            return res.status(400).json({ message: 'Invalid quantity' });
+        }
+        
+        const wine = await Wine.findById(wine_id);
+        if(!wine) {
+            throw new Error('Wine not found.');
+        }
         const user_id = req.user.userId;
-        console.log('userid:', user_id);
         const user = await User.findById(user_id);
-        if(!user) {
-            throw new Error('user not found.');
-        }
-        console.log('antes',user.cart)
-        const wine_id = req.body.wineId;
-        console.log('WINE ID:', wine_id);
-        const wine_indx = user.cart.findIndex(item => item.wine.toString() === wine_id);
-        if(wine_indx !== -1) {
-            user.cart[wine_indx].quantity++;
+        const cartItem = user.cart.find(item => item.wine.toString() === wine_id);
+        console.log("cartItem " + cartItem)
+        if(cartItem) {
+            cartItem.quantity = cartItem.quantity + quantity
         } else {
-            user.cart.push({ wine: wine_id });
+            user.cart.push({wine: wine_id, quantity: quantity})
         }
+
         await user.save();
         res.status(200).json({message:'wine added to cart'})
     } catch (error) {
-        console.error(error);
-        throw new Error('error adding wine to cart.');
+        res.status(500).json({message: "Error adding the wine"});
     }
 })
 
@@ -163,6 +204,23 @@ app.get('/get_cart_wines', verifyToken, async(req, res) => {
     }
 })
 
+app.get('/get_wine/:id', async(req, res) =>  {
+    try {
+        console.log(req.params)
+        const wine_id = req.params.id
+        console.log(wine_id)
+        const wine_data = await Wine.findById(wine_id)
+        console.log(wine_data)
+        if(wine_data) {
+            res.status(200).json({wine_data})
+        } else {
+            res.status(404).json({message: 'Non-existent wine'})
+        }
+    } catch (error) {
+        res.status(500).json({message: 'Error when searching for a wine'});
+    }
+})
+
 app.delete('/delete_wine_from_cart/:id', verifyToken ,async(req, res) => {
     try{
         const user_id = req.user.userId;
@@ -170,8 +228,8 @@ app.delete('/delete_wine_from_cart/:id', verifyToken ,async(req, res) => {
         if(!user) {
             throw new Error('user not found');
         }
+
         const wine_id = req.params.id;
-        console.log('ide del vino', wine_id);
         const wine_indx = user.cart.findIndex(item => item.wine.toString() === wine_id);
         console.log('wine idd:',wine_indx);
         if(user.cart[wine_indx].quantity > 1) {
@@ -180,10 +238,7 @@ app.delete('/delete_wine_from_cart/:id', verifyToken ,async(req, res) => {
             user.cart.splice(wine_indx, 1);
         }
     
-        console.log('cart in BD:', user.cart);
         await user.save();
-
-
         const userCart = await User.findById(user_id).populate('cart.wine');
         const newCart = userCart.cart;
         res.status(200).json({newCart});
@@ -199,12 +254,49 @@ app.get('/wine_description/:name', async(req,res) => {
         if(descr !== null) {
             res.status(200).json({message: `Description of ${name}`, description: descr.description});
         }else {
-            res.statue(404).json({message: 'Non-existent wine'})
+            res.status(404).json({message: 'Non-existent wine'})
         }
     }catch (error) {
         res.status(500).json({message: 'Error trying to show description'});
     }
-})
+});
+
+app.post('/contact-seller', verifyToken, async(req,res) => {
+    const user_id = req.user.userId;
+    const user = await User.findById(user_id);
+    if(!user) {
+        throw new Error('user not found');
+    }
+    const user_name = user.userName
+    const user_tel = user.tel
+    const msg = req.body.msg;
+    const total = req.body.total;
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: mt_email,
+            pass: 'cfuk wnts ewtw jksx',
+        },
+    });
+
+    const mailTosend = {
+        from: mt_email,
+        to: mt_email,
+        subject:  `Hola! mi nombre es ${user_name}. Este es mi pedido`,
+        text: msg + `\nComprador: ${user_name} \nTelefono: ${user_tel}  \nMonto: $${total}`,
+    };
+
+    transporter.sendMail(mailTosend, (error, info) => {
+        if(error) {
+            console.error('Error sending the mail', error);
+            res.status(500).send('Error sending the mail.');
+        } else {
+            console.log('Email sended', info.response);
+            res.status(200).send('Email sendend succescfully');
+        }
+    });
+});
 
 const port = 3001;
 app.listen(port, () => {

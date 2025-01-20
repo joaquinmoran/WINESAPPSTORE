@@ -1,78 +1,60 @@
 [
-    {   
-        "name": "Uvas Malbec",
-        "category": "Uvas",
-        "grapeType": "Malbec",
-        "year": 2019,
-        "description": "rico",
-        "amount": 10,
-        "price": 2000,
-        "img": "http://localhost:3000/images/reserve-malbec.jpg"
-    },
-
     {
-        "name": "Reserve Malbec",
-        "category": "Reserve",
-        "grapeType": "Malbec",
-        "year": 2019,
-        "description": "ricoo",
-        "amount": 13,
+        "name": "Mi Terruño Uvas Cabernet Sauvignon",
+        "origin": "Maipu, Mendoza",
+        "color": "Burdeos profundos con tonalidades rojizas",
+        "scent": "Final mezcla de hierbas aromaticas, pimienta y frutos rojos",
+        "mouth": "Suave y taninos gruesos. Largo, de interminable acabado aterciopelado",
+        "extra": "Disfrutar con carne de cerdo o cordero al horno sazonado con salsa de menta",
+        "stock": 13,
         "price": 2000,
-        "img": "http://localhost:3000/images/vinotest.png"
+        "img": "https://webimagemiterruno.s3.us-east-2.amazonaws.com/images/catalogue/reserve_malbec.jpeg"
     },
-
     {
-        "name": "Reserve Cabernet Franc",
-        "category": "Reserve",
-        "grapeType": "Franc",
-        "year": 2019,
-        "description": "ricoo",
-        "amount": 13,
+        "name": "Mi Terruño Expresión Cabernet Franc",
+        "origin": "Valle de uco, Mendoza",
+        "color": "Rojo rubi",
+        "scent": "Frutos rojos, con toques de menta y hierbas",
+        "mouth": "suave, fresco y buena persistencia",
+        "extra": "",
+        "stock": 13,
         "price": 2000,
-        "img": "http://localhost:3000/images/reserve-cf.jpg"
+        "img": "https://webimagemiterruno.s3.us-east-2.amazonaws.com/images/catalogue/expresion_cabernet_franc.jpeg"
     },
-
-    {   
-        "name": "Expression Cabernet",
-        "category": "expression",
-        "grapeType": "Cabernet",
-        "year": 2000,
-        "description": "ricooo",
-        "amount": 30,
-        "price": 1000,
-        "img": "http://localhost:3000/images/reserve-malbec.jpg"
-    },
-
     {
-        "name": "Uvas bonarda",
-        "category": "Reserve",
-        "grapeType": "Franc",
-        "year": 2019,
-        "description": "ricoo",
-        "amount": 13,
+        "name": "Mi Terruño Expresión Cabernet Sauvignon",
+        "origin": "Maipu y Tupungato (Valle de uco), Mendoza",
+        "color": "Rojo intenso",
+        "scent": "Combinando aromas tostados, chocolate y tabaco que aporta la madera",
+        "mouth": "Con cuerpo, redondeado y taninos dulces",
+        "extra": "",
+        "stock": 13,
         "price": 2000,
-        "img": "http://localhost:3000/images/reserve-malbec.jpg"
+        "img": "https://webimagemiterruno.s3.us-east-2.amazonaws.com/images/catalogue/expresion_cabernet_suavignon.jpeg"
     },
-
     {
-        "name": "Reserve Cabernet suavignon",
-        "category": "Reserve",
-        "grapeType": "Franc",
-        "year": 2019,
-        "description": "ricoo",
-        "amount": 13,
+        "name": "Mi Terruño Expresión Extra Brut",
+        "origin": "",
+        "color": "Amarillo pálido con reflejos verdes. Las burbujas son finas, en columnas bien definidas desde la base de la copa. La espuma es elegante y define una corona persistente en la copa.",
+        "scent": "Frutos cítricos, durazno, ananá, bien nítidas, en armonía con notas de pan fresco y pan tostado, logrados a través del contacto con la levadura.",
+        "mouth": "Fresco, frutado, redondo y muy suave. Se destaca por su fineza, complejidad y su final de boca amplio y largo",
+        "extra": "",
+        "stock": 13,
         "price": 2000,
-        "img": "http://localhost:3000/images/reserve-malbec.jpg"
+        "img": "https://webimagemiterruno.s3.us-east-2.amazonaws.com/images/catalogue/expresion_extra_brut.jpeg"
     },
-
     {
-        "name": "Reserve chardonnay",
-        "category": "Reserve",
-        "grapeType": "Franc",
-        "year": 2019,
-        "description": "ricoo",
-        "amount": 13,
+        "name": "Mi Terruño Expresión Sauvignon Blanc",
+        "origin": "Valle de uco, Mendoza",
+        "color": "Amarillo, tonos dorados palidos",
+        "scent": "Mezcla de aromas de pomelo y melon",
+        "mouth": "Notas herbaceas tipicas de Sauvignon Blanc",
+        "extra": "Ideal para acompañar mariscos, vieiras o para ser disfrutado por si solo",
+        "stock": 13,
         "price": 2000,
-        "img": "http://localhost:3000/images/reserve-malbec.jpg"
+        "img": "https://webimagemiterruno.s3.us-east-2.amazonaws.com/images/catalogue/expresion_extra_brut.jpeg"
     }
+
+
+    
 ]

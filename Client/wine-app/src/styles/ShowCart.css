@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css?family=Aboreto');
+
+.container-cart-page {
+    display: flex;
+    justify-content: center;
+}
+
+.container-cart{
+    background-image: url('https://webimagemiterruno.s3.us-east-2.amazonaws.com/images/showCartBackground.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.container-table {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 8%;
+    left: 20%;
+    width: 40%;
+    height: 90%;
+    box-shadow: 10px 10px 20px black;
+}
+
+.table-cart { 
+    color: rgb(172, 8, 190);
+    border: solid 7px;
+    border-radius: 20px;
+    width: 80%;
+    height: 80%;
+    border-collapse: separate;
+    font-size: 15px;
+    font-family: 'Aboreto';
+    font-weight: bold;
+    box-shadow: 10px 10px 20px black;
+}
+
+ .table-cart td {
+    border-top: solid 1px;
+}
+
+.info-cart-container {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 40px;
+    top: 35%;
+    left: 65%;
+    width: 20%;
+    height: 40%;
+    color: rgb(172, 8, 190);
+    box-shadow: 10px 10px 20px black;
+
+}
+
+.info-cart-container p {
+    position: absolute;
+    top: 30%;
+    font-size: 15px;
+}
+
+.continue-buying {
+    color: white;
+    position: absolute;
+    top: 60%;
+    height: 10%;
+    background-color: rgb(172, 8, 190);
+    border-radius: 10px;
+    border-color: transparent;
+}
+
+.continue-buying:hover {
+    width: 57%;
+    border: solid 2px;
+    background-color: transparent;
+    transition: 0.2s;
+    color: rgb(172, 8, 190);
+}
+
+
+
+.del-button {
+    background-color: transparent;
+    border: none;
+    color:rgb(73, 73, 252);
+    font-size: 15px;
+}
+
+.del-button:hover{
+    text-decoration: underline;
+}
+
+.nw-container {
+    background-color: white;
+    border-radius: 20px;
+    text-align: center;
+    display: block;
+    width: 50%;
+    height: 50%;
+    margin-left: 25%;
+    margin-top: 12%;
+}
+
+.order-container {
+    background-color: white;
+    height: 75%;
+    width: 50%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 20px;
+    border-radius: 20px;
+}
+
+.order-details-cnt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-seller {
+    background-color: rgb(171, 132, 255);
+    border: solid;
+    border-radius: 10px;
+    color: white;
+    font-size: large;
+    height: 5vh;
+    width: 40%;
+}
+
+.contact-seller:hover {
+    background-color: rgb(129, 100, 192);
+    transition: 1s;
+}
+
+.back-buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.back-to-store {
+    background-color: transparent;
+    border: none;
+    color: rgb(129, 100, 192);
+}
+
+.back-to-main{
+    background-color: transparent;
+    border: none;
+    color: rgb(129, 100, 192);
+}
+
+.back-to-store:hover {
+    text-decoration: underline;
+}
+
+.back-to-main:hover{
+    text-decoration: underline;
+}

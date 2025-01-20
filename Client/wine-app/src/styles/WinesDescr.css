@@ -1,0 +1,105 @@
+
+
+.main-cnt{ 
+    background-color: rgb(255, 255, 255);
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    
+}
+
+.wine-descr-cnt {
+    display: flex;
+    flex-direction: column;
+}
+
+.wine-img{
+
+    width: 30%;
+    height: 90vh;
+    margin-top: 10vh;
+    margin-left: 20vw;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+.main-descr{
+    border: solid 1px rgb(189, 189, 189);
+    border-radius: 5px;
+    width: 30%;
+    height: 90vh;
+    margin-left: 55%;
+    margin-top: -90vh ;
+   
+}
+
+.descr-p1, .descr-p2{
+    color: rgb(82, 82, 82);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: x-large;
+    margin-left: 1vw;
+}
+
+
+
+.ship{
+    color: green;
+    margin-top: -3vh;
+    margin-left: 1vw ;
+    font-size: small;
+}
+
+.cant-form{
+    margin-top: 15vh;
+    margin-left: 1vw;
+    font-family:Arial, Helvetica, sans-serif;
+    color: rgb(82, 82, 82);
+}
+
+.related-wines{
+    border: solid 2px rgb(240, 0, 0);
+    width: 30%;
+    margin-top: 10vh;
+    margin-left: 20vw;
+    height: 25vh;
+
+}
+
+.wine-charact{
+    width: 50%;
+    height: 40vh;
+    margin-left: 20vw;
+}
+.btn-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40%;
+}
+
+.add-to-cart-btn{
+    background-color: rgb(171, 132, 255);
+    border: solid;
+    border-radius: 10px;
+    color: white;
+    font-size: larger;
+    height: 10vh;
+    width: 95%;
+}
+
+.add-to-cart-btn:hover{
+    background-color: rgb(129, 100, 192);
+    transition: 1s;
+}
+
+.p{
+    font-size: large;
+    color: rgb(82, 82, 82);
+}
+
+.p-descr{
+    font-size: x-large;
+
+}

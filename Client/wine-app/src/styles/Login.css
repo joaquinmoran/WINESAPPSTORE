@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css?family=Farsan');
+
+.login-container {
+    background-color: transparent;
+    left: 85%;
+    top: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 100%;
+}
+
+.lg-con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 251, 251);
+    border-radius: 40px;
+    height: 75%;
+    width: 80%;
+    color: black;
+    font-family: 'Farsan';
+}
+
+.user-label {
+    position: relative;
+}
+
+.user-label .icon{
+    position: absolute;
+    top: 90%;
+    left: 88%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.log-inputs {
+    color: rgb(0, 0, 0);
+    background-color: rgba(196, 196, 196, 0);
+    border: none;
+    border-radius: 20px;
+    border-bottom: 2px solid rgb(0, 0, 0);
+    width: 75%;
+    padding: 10px;
+    outline: none;
+    margin-bottom: 10%;
+    margin-top: 10%;
+    box-shadow: 5px 5px 5px rgb(105, 104, 104);
+}
+
+.log-inputs:focus {
+    border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+.log-inputs::placeholder {
+    color: rgb(19, 19, 19);
+    text-align: start;
+}
+
+.pw-label {
+    position: relative;
+}
+
+.pw-label .icon {
+    position: absolute;
+    top: 90%;
+    left: 84%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.pw-label .icon:hover {
+    cursor: pointer;
+}
+
+
+
+.button-in {
+    background-color: rgb(0, 0, 0);
+    border-radius: 50px;
+    width: 30%;
+    transition-duration: 0.8s;
+    border: none;
+    border-color: rgb(56, 0, 52);
+    height: 40px;
+    font-size: larger;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: black;
+    margin-top: 40px;
+    
+}.button-in .butt-icon {
+    color: white;
+}
+
+.button-in:hover {
+    background-color: rgb(78, 55, 93);
+    border-radius: 50px;
+    color: black;
+    width: 40%;
+    box-shadow: 2px 2px 2px rgb(105, 104, 104);
+
+    
+}
+
+.login-area {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 1s ease, max-height 1s ease;
+}
+  
+.login-area.active {
+    opacity: 1;
+    max-height: 200px;
+}
+
+@media screen and (max-width: 767px) {
+
+    .login-container {
+        background-color: transparent;
+        left: 50%;
+        top: 50%;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 75%;
+        height: 100%;
+        z-index: 999;
+    }
+
+}
+

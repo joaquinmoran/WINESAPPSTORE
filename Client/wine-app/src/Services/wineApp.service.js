@@ -4,32 +4,37 @@ import { json } from "react-router-dom";
 
 const API_URL = 'http://localhost:3001';
 
+
 class WinesAppService {
 
-    login(userName, password){
-        return axios
-            .post(
+    async login(userName, password){
+        try {
+            const response =  await axios.post(
                 API_URL + '/login',
                 {
                     userName,
                     password,
                 },
             )
-            .then((response) => {
-                const token = response.data.data.token;
-                console.log(response.data.data.token);
-                axios.defaults.headers.common['auth-token'] = token;
-                return response;
-            });
+            const token = response.data.data.token;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            return response;
+        } catch (error) {
+            if(error.response) {
+                return error.response
+            } else {
+                throw new Error("Unexpected error in the request")
+            }
+        }
     }
 
-    signin(userName, email, age, password) {
+    async signin(userName, tel, age, password) {
         return axios 
             .post(
                 API_URL + '/create_user',
                 {
                     userName,
-                    email,
+                    tel,
                     age,
                     password,
                 }
@@ -40,13 +45,14 @@ class WinesAppService {
             });
     }
 
-    getWinesList(token) {
+    async getWinesList(token) {
         return axios 
             .get(
                 API_URL + '/list_wines',
+                {},
                 {
                     headers: {
-                        Authorization: "Bearer" + `${token}`,
+                        Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json"
                     }
                 },
@@ -57,28 +63,35 @@ class WinesAppService {
             })
     }
 
-    addWineToCart(wineId,token) {
-        return axios 
-            .post(
-                API_URL + '/add_to_cart',
-                {   
-                    headers: {
-                        Authorization: "Bearer" + `${token}`,
-                        "Content-Type": "application/json"
-                    },
-                    wineId,
+    async addWineToCart(wineId, quantity, token) {
+        return axios.post(
+            API_URL + `/add_to_cart/${wineId}`,
+            {
+                quantity
+            }, 
+            {   
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
                 }
-            )
-            .then((response) => {
-                return response;
-            });
+            }
+        ).then((response) => {
+            return response;
+        });
+      
     }
 
-    getWinesFromCart() {
+    async getWinesFromCart(token) {
         return axios
             .get(
                 API_URL + '/get_cart_wines',
                 {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
+                },
             )
             .then((response) => {
                 console.log('servicedata:', response.data, response.status);
@@ -86,13 +99,14 @@ class WinesAppService {
             });
     }
 
-    deleteWineFromCart(wineId, token) {
+    async deleteWineFromCart(wineId, token) {
         return axios
             .delete(
                 API_URL + `/delete_wine_from_cart/${wineId}`,
+                {},
                 {
                     headers: {
-                        Authorization: "Bearer" + `${token}`,
+                        Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json"
                     }
                 },   
@@ -104,19 +118,52 @@ class WinesAppService {
 
     }
 
-    saveOrder(token) {
+    async saveOrder(token) {
         return axios
             .post(
                 API_URL + '/order',
+                {},
                 {
                     headers: {
-                        Authorization: "Bearer" + `${token}`,
+                        Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json"
                     }
                 }
             ).then( 
                 (response) => {
-                    console.log(response.data);
+                    console.log('order:', response);
+                    return response;
+                }
+            )
+    }
+
+    async makeContact(msg, total ,token) {
+        return axios
+            .post(
+                API_URL + '/contact-seller',
+                {
+                    msg,
+                    total,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+                }
+            )
+    }
+
+    async getWineById(wineId) {
+        return axios
+            .get(
+                API_URL + `/get_wine/${wineId}`,
+                {},
+                {
+                }
+            ).then(
+                (response) => {
+                    return response;
                 }
             )
     }

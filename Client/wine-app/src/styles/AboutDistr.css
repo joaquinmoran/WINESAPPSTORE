@@ -1,0 +1,30 @@
+.ad-container {
+    position: absolute;
+    background-color: rgb(253, 251, 251);
+    height: 100%;
+    width: 120%;
+    top: 0%;
+    left: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    transition: 1s;
+}
+
+.distr-info {
+    position: absolute;
+    background-color: black;
+    top: 50%;
+    width: 100%;
+    height: 50%;
+}
+
+.img-1{
+    position: absolute;
+    background-image: url('https://webimagemiterruno.s3.us-east-2.amazonaws.com/images/location.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 50%;
+    border-bottom: solid 2px rgb(64, 64, 64);
+}
