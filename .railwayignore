@@ -1,0 +1,18 @@
+# Ignorar node_modules
+node_modules
+
+# Ignorar archivos de configuración local
+.env
+.vscode
+
+# Ignorar archivos de desarrollo
+.git
+.gitignore
+.DS_Store
+
+# Ignorar archivos de logs
+*.log
+
+# Ignorar carpetas de build del frontend (si no las necesitas en el backend)
+Client/wine-app/build
+Client/wine-app/node_modules
