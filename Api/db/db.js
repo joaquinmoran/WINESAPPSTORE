@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Wine = require('../models/wineModel');
 const winesJson = require('../json/wines.json');
+// Cargar variables de entorno
+require('dotenv').config();
 
 MONGO_URL = process.env.MONGO_URL
 
