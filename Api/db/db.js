@@ -2,12 +2,11 @@ const mongoose = require('mongoose');
 const Wine = require('../models/wineModel');
 const winesJson = require('../json/wines.json');
 
+MONGO_URL = process.env.MONGO_URL
+
 async function connectDB() {
     try {
-        mongoose.connect('mongodb://127.0.0.1:27017/wines_DB', {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
+        mongoose.connect(MONGO_URL, {});
 
         mongoose.connection.on('connected', () => {
             console.log('Connected to MongoDB');
@@ -15,9 +14,9 @@ async function connectDB() {
 
         mongoose.connection.on('error', (err) => {
             console.error('Error connecting to MongoDB:', err);
-          });
+        });
 
-        const count = await Wine.countDocuments();
+        const count = Wine.countDocuments();
         if(count === 0){
             await loadWines();
         }else {

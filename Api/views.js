@@ -17,7 +17,7 @@ const helmet = require('helmet');
 const morgan = require('morgan')
 const mt_email = 'miterrunorioiv@gmail.com'
 
-// require('dotenv').config()
+require('dotenv').config()
 
 
 const secretKey = '41322884jm';
