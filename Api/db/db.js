@@ -8,7 +8,7 @@ MONGO_URL = process.env.MONGO_URL
 
 async function connectDB() {
     try {
-        mongoose.connect(MONGO_URL, {});
+        mongoose.connect('mongodb://mongo:JymwSKoAEOEzYhJWlFGitWZDdpVOGcts@mongodb-e_bq.railway.internal:27017', {});
 
         mongoose.connection.on('connected', () => {
             console.log('Connected to MongoDB');
