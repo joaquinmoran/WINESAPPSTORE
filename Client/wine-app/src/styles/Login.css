@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Farsan');
+@import url('https://fonts.googleapis.com/css?family=Farro');
 
 .login-container {
     background-color: transparent;
@@ -23,7 +23,7 @@
     height: 75%;
     width: 80%;
     color: black;
-    font-family: 'Farsan';
+    font-family: 'Farro';
 }
 
 .user-label {

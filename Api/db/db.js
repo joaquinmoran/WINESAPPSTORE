@@ -4,8 +4,18 @@ const winesJson = require('../json/wines.json');
 
 async function connectDB() {
     try {
-        await mongoose.connect('mongodb://localhost:27017/wines_DB', {});
-        console.log('Connection to the database successful');
+        mongoose.connect('mongodb://127.0.0.1:27017/wines_DB', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+
+        mongoose.connection.on('connected', () => {
+            console.log('Connected to MongoDB');
+        });
+
+        mongoose.connection.on('error', (err) => {
+            console.error('Error connecting to MongoDB:', err);
+          });
 
         const count = await Wine.countDocuments();
         if(count === 0){

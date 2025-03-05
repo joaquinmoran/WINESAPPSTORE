@@ -38,7 +38,6 @@ export default function Login() {
                 console.log(response.status)
                 if(response.status === 200){
                     const authToken = response.data.data.token;
-                    console.log('token',authToken);
                     localStorage.setItem('token', authToken);
                     navigate('/store', { state: {authToken} });
                 }else if(response.status === 401 || response.status === 400 ) {

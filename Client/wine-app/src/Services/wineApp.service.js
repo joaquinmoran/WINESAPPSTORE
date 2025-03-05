@@ -2,7 +2,7 @@ import axios from "axios";
 import { json } from "react-router-dom";
 
 
-const API_URL = 'http://localhost:3001';
+const API_URL = '';
 
 
 class WinesAppService {
@@ -44,23 +44,24 @@ class WinesAppService {
                 return response;
             });
     }
-
+    
     async getWinesList(token) {
-        return axios 
-            .get(
-                API_URL + '/list_wines',
-                {},
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "application/json"
-                    }
+        console.log("entro al service");
+        return axios
+            .get(API_URL + '/list_wines', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
                 },
-            )
+            })
             .then((response) => {
-                console.log('succesful.' + response.data, token) ;
+                console.log('successful.', response.data);
                 return response;
             })
+            .catch((error) => {
+                console.error('Error fetching wines:', error);
+                throw error;
+            });
     }
 
     async addWineToCart(wineId, quantity, token) {

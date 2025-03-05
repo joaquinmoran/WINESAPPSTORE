@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate,  useLocation  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import WinesAppService from '../Services/wineApp.service';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping, faBars, faHome } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faHome } from "@fortawesome/free-solid-svg-icons";
 import Footer from "./Footer";
 import '../styles/StoreWines.css'; 
 
@@ -17,8 +17,10 @@ export default function StoreWines() {
     const userToken = localStorage.getItem('token');
 
     function getAllWines() {
+        console.log("aca entroo de la parate del front")
         WinesAppService.getWinesList(userToken).then(
             (response) => {
+                console.log("el statuse es" + response.status)
                 if (response.status === 200) {
                     console.log(response.data);
                     setWines(response.data);
