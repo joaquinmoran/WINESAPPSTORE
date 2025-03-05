@@ -15,6 +15,7 @@ const cluster = require('cluster');
 const os = require('os');
 const helmet = require('helmet');
 const morgan = require('morgan')
+const path = require('path');
 const mt_email = 'miterrunorioiv@gmail.com'
 
 require('dotenv').config()
@@ -46,7 +47,14 @@ app.use((err, req, res, next) => {
 });
 app.use(morgan('combined'));
 
+app.use(express.static(path.join(__dirname, 'build')));
+
+
 connectDB();
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
